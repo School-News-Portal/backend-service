@@ -1,40 +1,13 @@
-    import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-    export enum EUserTypes {
-        AUTHOR = "AUTHOR",
-        ADMIN = "ADMIN",
-        READER = "READER"
-    }
+import * as express from "express";
+import { Router } from "express";
+import { register, login} from '../controllers/users';
+
+const BASE_URL = process.env.BASE_URL;
 
 
-    @Entity({ name: "users"})
-    export class User{
+const router: Router = express.Router();
 
-        @PrimaryGeneratedColumn()
-        id: number;
+router.post(`${BASE_URL}/users`, register);
+router.post(`${BASE_URL}/user/login`, login);
 
-        @Column({
-            type:"varchar",
-            length:50,
-            nullable:true
-        })
-        complementaryName: string;
-        
-        @Column()
-        displayName: string;
-        
-        @Column({
-            type:"enum",
-            enum: EUserTypes
-        })
-        type: EUserTypes
-
-        @Column({
-            type: "varchar",
-            length: 30,
-            unique: true
-        })
-        username: string;
-
-        @Column()
-        password: string;
-    }
+export default router;
