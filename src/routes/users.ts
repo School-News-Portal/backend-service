@@ -7,7 +7,7 @@ const BASE_URL = process.env.BASE_URL;
 
 const router: Router = express.Router();
 
-router.post(`${BASE_URL}/users`, register);
-router.post(`${BASE_URL}/user/login`, login);
+router.post("/register", register);
+router.post("/login", login);
 
 export default router;

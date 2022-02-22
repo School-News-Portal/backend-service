@@ -20,7 +20,7 @@ export const register = async (req: Request, res: Response) => {
     res.status(400).send(ERROR_RESPONSE(`User with type ${type}, username ${username} already exists`))
   }
   const salt = await bcrypt.genSalt(SALT_ROUND);
-  const hashPassword = await bcrypt.hast(password, salt);
+  const hashPassword = await bcrypt.hash(password, salt);
   const user = await userRepository.create({
     complementaryName,
     displayName,
@@ -30,11 +30,8 @@ export const register = async (req: Request, res: Response) => {
   });
   await userRepository.save(user);
   res.status(201).send(SUCCESS_RESPONSE("User created successfully",user))
-
-
-
+  
 }
-
 
 export const login = async (req: Request, res: Response) => {
   const { username, password } = req.body;

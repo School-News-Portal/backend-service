@@ -4,9 +4,9 @@
     "port": 3306,
     "username": "root",
     "password": "",
-    "database": "social_network",
+    "database": "news_portal",
     "synchronize": true,
-    "logging": false,
+    "logging": true,
     "entities": [
         "src/entity/**/*.ts"
     ],

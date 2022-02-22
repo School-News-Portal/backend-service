@@ -19,7 +19,9 @@
         })
         complementaryName: string;
         
-        @Column()
+        @Column({
+            type:"varchar"
+        })
         displayName: string;
         
         @Column({
@@ -35,6 +37,8 @@
         })
         username: string;
 
-        @Column()
+        @Column({
+            type: "varchar"
+        })
         password: string;
     }

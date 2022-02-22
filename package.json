@@ -2,10 +2,10 @@
   "name": "backend-service",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "tsc && nodemon dist/index.js"
+    "serve": "nodemon --exec ts-node index.ts"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,9 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.3",
+    "passport": "^0.5.2",
+    "passport-jwt": "^4.0.0",
     "typeorm": "^0.2.43"
   }
 }

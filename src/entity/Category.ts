@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
 
-@Entity()
+@Entity({ name: "categories"})
 export class Category{
 
     @PrimaryGeneratedColumn()
@@ -12,7 +12,9 @@ export class Category{
     })
     name: string;
 
-    @Column()
+    @Column({
+        type:'varchar'
+    })
     description: string;
 
 }
