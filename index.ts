@@ -1,4 +1,7 @@
 import express from 'express';
+import userRoutes from './src/routes/users';
+import * as bodyParser from 'body-parser';
+import { createConnection } from 'typeorm';
 const app = express();
 const port = 3000;
 
