@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
-import { User} from '../entity/User';
 import { UserRepository} from '../repository/UserRepository';
 import {getCustomRepository} from 'typeorm';
 import * as bcrypt from 'bcryptjs';
