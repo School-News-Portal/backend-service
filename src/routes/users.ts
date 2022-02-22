@@ -11,7 +11,7 @@
 
         @PrimaryGeneratedColumn()
         id: number;
-        
+
         @Column({
             type:"varchar",
             length:50,
@@ -30,7 +30,8 @@
 
         @Column({
             type: "varchar",
-            length: 30
+            length: 30,
+            unique: true
         })
         username: string;
 
