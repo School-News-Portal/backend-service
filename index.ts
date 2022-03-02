@@ -1,5 +1,6 @@
 import express from 'express';
 import userRoutes from './src/routes/users';
+import categoryRoutes from './src/routes/categories';
 import * as bodyParser from 'body-parser';
 import './src/services/passport';
 import { Application } from 'express';
@@ -18,6 +19,7 @@ createConnection().then((connection) => {
     });
     
     app.use("/users", userRoutes);
+    app.use("/categories", categoryRoutes);
     
     app.listen(process.env.PORT || 3000, () => {
       return console.log(`App is  running at http://localhost:${process.env.PORT || 3000} 🥳🥳`);
