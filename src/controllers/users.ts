@@ -16,7 +16,7 @@ dotenv.config();
 export const register = async (req: Request, res: Response) => {
   const { complementaryName, displayName, type, username, password } = req.body;
   const userTypeRepository = await getRepository(UserTypes);
-  const userType = await userTypeRepository.find({ id: type});
+  const userType = await userTypeRepository.findOne({ id: type});
   if(!userType){
     return res.status(400).send(ERROR_RESPONSE("User type not found"));
   }
