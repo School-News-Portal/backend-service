@@ -1,10 +1,8 @@
 import { Request, Response} from 'express';
 import * as dotenv from 'dotenv';
-import { UserTypeRepository} from '../repository/UserTypeRepository';
 import { getRepository} from 'typeorm';
 import { UserTypes } from '../entity/UserTypes';
 import { SUCCESS_RESPONSE, ERROR_RESPONSE} from '../utils/common.utils';
-import userTypes from '../routes/userTypes';
 dotenv.config()
 
 export async function create(req: Request, res: Response){
@@ -25,8 +23,6 @@ export async function single(req: Request, res: Response){
   }
   return res.status(200).send(SUCCESS_RESPONSE("", type));
 }
-
-
 
 
 export async function all(req: Request, res: Response){
