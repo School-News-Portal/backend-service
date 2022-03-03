@@ -7,6 +7,7 @@ const router:Router =express.Router();
 
 router.post('/addCategory',AddCategory);
 router.get('/getAll',getAll);
+
 router.get('/getOne/:id',async(req,res)=>{
     const category = await getOne(req.params.id)
     if(category.error){

@@ -18,8 +18,8 @@ createConnection().then((connection) => {
       res.json('Welcome to the news portal !');
     });
     
-    app.use("/users", userRoutes);
-    app.use("/categories", categoryRoutes);
+    app.use(`${BASE_URL}/users`, userRoutes);
+    app.use(`${BASE_URL}/categories`, categoryRoutes);
     
     app.listen(process.env.PORT || 3000, () => {
       return console.log(`App is  running at http://localhost:${process.env.PORT || 3000} 🥳🥳`);
