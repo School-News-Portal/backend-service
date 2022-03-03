@@ -16,7 +16,7 @@ export const register = async (req: Request, res: Response) => {
   const userRepository = getCustomRepository(UserRepository);
   const existingUser = await userRepository.findByNameAndType(type, username);
   if(existingUser){
-    res.status(400).send(ERROR_RESPONSE(`User with type ${type}, username ${username} already exists`))
+    return res.status(400).send(ERROR_RESPONSE(`User with type ${type}, username ${username} already exists`))
   }
   const salt = await bcrypt.genSalt(SALT_ROUND);
   const hashPassword = await bcrypt.hash(password, salt);
@@ -28,7 +28,7 @@ export const register = async (req: Request, res: Response) => {
     password: hashPassword,
   });
   await userRepository.save(user);
-  res.status(201).send(SUCCESS_RESPONSE("User created successfully",user))
+  return res.status(201).send(SUCCESS_RESPONSE("User created successfully",user))
   
 }
 
