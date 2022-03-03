@@ -10,3 +10,5 @@ router.get("/", UserTypeController.single);
 router.get("/", UserTypeController.single);
 router.put("/", UserTypeController.update);
 router.delete("/", UserTypeController.remove);
+
+export default router;
