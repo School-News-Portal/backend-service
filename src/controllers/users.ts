@@ -7,11 +7,12 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import {User} from '../entity/User';
 import { SUCCESS_RESPONSE, ERROR_RESPONSE, SUCCESS_RESPONSE_WITH_TOKEN } from '../utils/common.utils';
+dotenv.config();
 
 const SALT_ROUND = Number(process.env.BCRYPT_SALT_AROUND);
 const SECRET_KEY = process.env.SECRET_OR_KEY;
 
-dotenv.config();
+
 
 export const register = async (req: Request, res: Response) => {
   const { complementaryName, displayName, type, username, password } = req.body;
@@ -42,8 +43,8 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   const { username, password } = req.body;
-   const userRepository = getCustomRepository(UserRepository);
-  const user = await userRepository.findOne({username});
+   const userRepository = getRepository(User);
+  const user = await userRepository.findOne({username:username});
   if(!user){
     res.status(404).send(ERROR_RESPONSE(`${username} not found`))
   }
@@ -54,7 +55,7 @@ export const login = async (req: Request, res: Response) => {
       username: user.username,
       complementaryName: user.complementaryName
     };
-    const token = jwt.sign(payload, SECRET_KEY,{expressIn: 3600});
+    const token = jwt.sign(payload, SECRET_KEY,{expiresIn: '12h'});
     res.status(200).send(SUCCESS_RESPONSE_WITH_TOKEN("Logged in successfully",user, token));
   }
   else{

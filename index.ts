@@ -5,9 +5,10 @@ import userTypesRoutes from './src/routes/userTypes';
 import * as bodyParser from 'body-parser';
 import './src/services/passport';
 import { Application } from 'express';
+import * as dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
 
-
+dotenv.config();
 const BASE_URL = process.env.BASE_URL;
 
 createConnection().then((connection) => {
