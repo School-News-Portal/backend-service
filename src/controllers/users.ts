@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 import { UserRepository} from '../repository/UserRepository';
-import {getCustomRepository} from 'typeorm';
+import {getCustomRepository, getRepository} from 'typeorm';
+import { UserTypes} from '../entity/UserTypes';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
+import {User} from '../entity/User';
 import { SUCCESS_RESPONSE, ERROR_RESPONSE, SUCCESS_RESPONSE_WITH_TOKEN } from '../utils/common.utils';
 
 const SALT_ROUND = Number(process.env.BCRYPT_SALT_AROUND);
@@ -13,20 +15,26 @@ dotenv.config();
 
 export const register = async (req: Request, res: Response) => {
   const { complementaryName, displayName, type, username, password } = req.body;
-  const userRepository = getCustomRepository(UserRepository);
-  const existingUser = await userRepository.findByNameAndType(type, username);
+  const userTypeRepository = await getRepository(UserTypes);
+  const userType = await userTypeRepository.find({ id: type});
+  if(!userType){
+    return res.status(400).send(ERROR_RESPONSE("User type not found"));
+  }
+  
+  const userRepository = getRepository(User);
+  const existingUser = await userRepository.findOne({ username: username});
   if(existingUser){
-    return res.status(400).send(ERROR_RESPONSE(`User with type ${type}, username ${username} already exists`))
+    return res.status(400).send(ERROR_RESPONSE(`User with username ${username} already exists`))
   }
   const salt = await bcrypt.genSalt(SALT_ROUND);
   const hashPassword = await bcrypt.hash(password, salt);
   const user = await userRepository.create({
     complementaryName,
     displayName,
-    type,
     username,
     password: hashPassword,
-  });
+    type,
+  })
   await userRepository.save(user);
   return res.status(201).send(SUCCESS_RESPONSE("User created successfully",user))
   
