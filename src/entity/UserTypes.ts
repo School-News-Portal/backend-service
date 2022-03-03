@@ -3,7 +3,7 @@ import { PrimaryGeneratedColumn, Column, Entity } from "typeorm";
 
 @Entity({ name: "user-types"})
 
-export default class UserTypes{
+export class UserTypes{
     @PrimaryGeneratedColumn()
     id: number;
 
