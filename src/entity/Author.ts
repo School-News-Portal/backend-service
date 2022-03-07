@@ -6,6 +6,7 @@ export enum AUTHOR_STATUS {
 }
 
 
+@Entity({ name: "author"})
 export class Author{
 
     @PrimaryGeneratedColumn()
