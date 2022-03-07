@@ -37,7 +37,7 @@ export async function update(req: Request, res: Response){
       if(userType === false){
       return res.status(400).send(ERROR_RESPONSE("User type not found"))
   }
-  await userTypeRepository.update(Number(req.params.id),{name:req.params.name})
+  await userTypeRepository.update(Number(req.params.id),{name:req.body.name})
   const updatedType = await userTypeRepository.find({ id: Number(req.params.id)})
   return res.status(200).send(SUCCESS_RESPONSE("", updatedType));
 }
