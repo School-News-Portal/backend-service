@@ -14,21 +14,21 @@ export const create = async (req: Request, res: Response) => {
     
 
     const userRepository = await getRepository(UserTypes);
-    const userType = await userRepository.findOne({ id: Number(type) });
+    const userType = await userRepository.findOne({ id: type });
     if(!userType) {
         return res.status(400).send(ERROR_RESPONSE("User type not found"));
     }
 
 
     const categoryRepository = await getRepository(Category);
-    const postCategory = await categoryRepository.findOne({ id: Number(category) });
+    const postCategory = await categoryRepository.findOne({ id: category });
     if(!postCategory) {
          return res.status(400).send(ERROR_RESPONSE("Category not found"));
     }
 
 
     const authorRepository = await getRepository(Author);
-    const postAuthor = await authorRepository.findOne({ id: Number(author) });
+    const postAuthor = await authorRepository.findOne({ id: author });
     if(!postAuthor) {
          return res.status(400).send(ERROR_RESPONSE("Author not found"));
     }
