@@ -1,11 +1,6 @@
-    import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-    export enum EUserTypes {
-        AUTHOR = "AUTHOR",
-        ADMIN = "ADMIN",
-        READER = "READER"
-    }
-
-
+    import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+    import { UserTypes} from "./UserTypes";
+  
     @Entity({ name: "users"})
     export class User{
 
@@ -23,12 +18,6 @@
             type:"varchar"
         })
         displayName: string;
-        
-        @Column({
-            type:"enum",
-            enum: EUserTypes
-        })
-        type: EUserTypes
 
         @Column({
             type: "varchar",
@@ -37,8 +26,13 @@
         })
         username: string;
 
+        @OneToOne(()=> UserTypes)
+        @JoinColumn()
+        type: UserTypes;
+
         @Column({
             type: "varchar"
         })
         password: string;
+        
     }
