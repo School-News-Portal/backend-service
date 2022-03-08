@@ -76,7 +76,7 @@ export async function deletePost(req: Request, res: Response){
       return res.status(400).send(ERROR_RESPONSE("Post not found"));
     }
     await postRepository.remove(post);
-    return res.send(`Post with id ${req.params.id} deleted successfully`);
+    return res.send(SUCCESS_RESPONSE(`Post with id ${req.params.id} deleted successfully`));
 
 }
 

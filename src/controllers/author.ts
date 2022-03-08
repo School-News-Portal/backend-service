@@ -74,7 +74,7 @@ export async function deleteAuthor(req: Request, res: Response){
       return res.status(400).send(ERROR_RESPONSE("Author not found"));
     }
     await authorRepository.remove(author);
-    return res.send(`Author with id ${req.params.id} deleted successfully`);
+    return res.send(SUCCESS_RESPONSE(`Author with id ${req.params.id} deleted successfully`));
 
 }
 
