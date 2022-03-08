@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
-import { Author} from '../entity/Author';
-import { UserTypes } from '../entity/UserTypes';
 import { getRepository} from 'typeorm';
-import { Category } from '../entity/Category';
 import {Posts} from '../entity/Posts';
 import { SUCCESS_RESPONSE, ERROR_RESPONSE, SUCCESS_RESPONSE_WITH_TOKEN } from '../utils/common.utils';
 
@@ -11,32 +8,11 @@ dotenv.config()
 
 export const create = async (req: Request, res: Response) => {
     const { type, category , datePostedOn, title, content, dateUpdatedOn, status, author } = req.body;
-    
-
-    const userRepository = await getRepository(UserTypes);
-    const userType = await userRepository.findOne({ id: type });
-    if(!userType) {
-        return res.status(400).send(ERROR_RESPONSE("User type not found"));
-    }
-
-
-    const categoryRepository = await getRepository(Category);
-    const postCategory = await categoryRepository.findOne({ id: category });
-    if(!postCategory) {
-         return res.status(400).send(ERROR_RESPONSE("Category not found"));
-    }
-
-
-    const authorRepository = await getRepository(Author);
-    const postAuthor = await authorRepository.findOne({ id: author });
-    if(!postAuthor) {
-         return res.status(400).send(ERROR_RESPONSE("Author not found"));
-    }
 
     const postRepository = await getRepository(Posts);
-    const existingPost = await postRepository.findOne({title});
+    const existingPost = await postRepository.findOne({title:title, category: category});
     if(existingPost){
-         return res.status(400).send(ERROR_RESPONSE(`Post with tiles ${title} already exists`));
+         return res.status(400).send(ERROR_RESPONSE(`Post with title ${title} and category ${category} already exists`));
     }
 
     const post = await postRepository.create({

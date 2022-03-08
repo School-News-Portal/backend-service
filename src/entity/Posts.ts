@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, Column, Entity, JoinColumn, OneToOne} from "typeorm";
+import { PrimaryGeneratedColumn, Column, Entity, JoinColumn, OneToOne,ManyToOne,OneToMany} from "typeorm";
 import { UserTypes } from "./UserTypes";
 import { Category} from './Category';
 import { Author } from './Author';
@@ -17,12 +17,10 @@ export class Posts{
     id: number;
 
 
-    @OneToOne(()=> UserTypes)
-    @JoinColumn()
+    @ManyToOne(()=> UserTypes, type=> type.id)
     type: UserTypes;
 
-    @OneToOne(()=> Category)
-    @JoinColumn()
+    @ManyToOne(()=> Category, category=> category.id)
     category: Category;
 
     @Column({
@@ -54,7 +52,7 @@ export class Posts{
     })
     status: NEWS_STATUS;
 
-    @OneToOne(()=> Author)
+    @ManyToOne(()=> Author, author => author.id)
     @JoinColumn()
     author: Author;
 

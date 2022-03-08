@@ -1,4 +1,5 @@
-import {PrimaryGeneratedColumn, Column, Entity} from "typeorm";
+import {PrimaryGeneratedColumn, Column, Entity, OneToMany} from "typeorm";
+import { Posts} from './Posts';
 
 export enum AUTHOR_STATUS {
   DISABLED = 'DISABLED',
@@ -46,4 +47,7 @@ export class Author{
     })
     password: string;
 
+
+    @OneToMany(()=> Posts, post => post.id)
+    posts: Posts[] 
 }
