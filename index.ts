@@ -4,6 +4,7 @@ import categoryRoutes from './src/routes/categories';
 import userTypesRoutes from './src/routes/userTypes';
 import authorRoutes from './src/routes/author';
 import postRoutes from './src/routes/posts';
+import commentRoutes from './src/routes/comments';
 import * as bodyParser from 'body-parser';
 import './src/services/passport';
 import { Application } from 'express';
@@ -27,6 +28,7 @@ createConnection().then((connection) => {
     app.use(`${BASE_URL}/user/types`, userTypesRoutes);
     app.use(`${BASE_URL}/author`,authorRoutes);
     app.use(`${BASE_URL}/posts`,postRoutes);
+    app.use(`${BASE_URL}/comment`,commentRoutes);
     
     app.listen(process.env.PORT || 3000, () => {
       return console.log(`App is  running at http://localhost:${process.env.PORT || 3000} 🥳🥳`);
